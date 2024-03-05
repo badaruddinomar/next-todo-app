@@ -2,13 +2,14 @@
 import { addTodo } from "@/provider/todoReducer";
 import React, { useState } from "react";
 import { FaPlus } from "react-icons/fa6";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Toaster, toast } from "sonner";
 
 const SearchBar = () => {
   const [input, setInput] = useState("");
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
+  const { todos } = useSelector((state) => state.todoReducer);
 
   const todoAddHandler = async (e) => {
     try {
@@ -28,12 +29,13 @@ const SearchBar = () => {
         },
       };
       const response = await fetch(url, options);
+      const data = await response.json();
 
       if (response.ok) {
         dispatch(
           addTodo({
             title: input,
-            id: Date.now(),
+            id: todos.length + 1, // !todo: bug - json placeholder does not save data. I stored the data manuallay into the todos array--
             completed: false,
           })
         );
@@ -58,6 +60,7 @@ const SearchBar = () => {
               type="text"
               placeholder="Write your task.."
               value={input}
+              autoFocus="false"
               onChange={(e) => setInput(e.target.value)}
               className="w-full flex-1 font-primary lg:w-[700px] bg-[aliceblue] border-none outline-none h-[50px] px-3 rounded-l-md"
             />

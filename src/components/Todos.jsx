@@ -15,6 +15,7 @@ const Todos = () => {
   const [editedTitle, setEditedTitle] = useState("");
   const { todos } = useSelector((state) => state.todoReducer);
   const [isLoading, setIsLoading] = useState(false);
+  console.log(todos);
 
   // get todos--
   useEffect(() => {
@@ -138,7 +139,7 @@ const Todos = () => {
           <ul className="w-full lg:w-[700px]">
             {todos.map((todo) => (
               <li
-                key={todo.id}
+                key={todo.id + Date.now()}
                 className="w-full min-h-[50px] max-h[auto] shadow-md px-3  leading-[50px] rounded-md flex justify-between items-center relative my-10"
               >
                 <div className="flex items-center pt-[40px] pb-3">
@@ -178,28 +179,28 @@ const Todos = () => {
                 </div>
                 {/* popup modal-- */}
                 {openModal && (
-                  <div className="fixed top-0 left-0 w-screen h-screen px-5 transition-all duration-300 ctm-bg-modal">
-                    <form className="flex items-center justify-center w-full h-full">
+                  <div className="fixed top-0 left-0 z-40 w-screen h-screen px-5 transition-all duration-300 ctm-bg-modal">
+                    <form
+                      className="z-50 flex items-center justify-center w-full h-full"
+                      onSubmit={() =>
+                        handleUpdateTodo(
+                          todo?.id,
+                          editedTitle,
+                          todo?.completed,
+                          todo?.userId
+                        )
+                      }
+                    >
                       <div className="flex relative items-center justify-center bg-white h-[200px] w-full sm:w-[400px] rounded-lg shadow-sm">
                         <input
                           type="text"
                           placeholder="Edit your task..."
+                          autoFocus="false"
                           value={editedTitle}
                           onChange={(e) => setEditedTitle(e.target.value)}
-                          className="px-3 h-[50px]  outline-none rounded-l-md bg-[aliceblue]"
+                          className="px-3 h-[50px] outline-none  rounded-l-md bg-[aliceblue]"
                         />
-                        <button
-                          type="button"
-                          onClick={() =>
-                            handleUpdateTodo(
-                              todo?.id,
-                              editedTitle,
-                              todo?.completed,
-                              todo?.userId
-                            )
-                          }
-                          className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 cursor-pointer  text-[white] px-5 h-[50px] bg-[purple] rounded-r-md hover:opacity-50 transition-all duration-300"
-                        >
+                        <button className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 cursor-pointer  text-[white] px-5 h-[50px] bg-[purple] rounded-r-md hover:opacity-50 transition-all duration-300">
                           Edit
                         </button>
                         <MdOutlineClose
