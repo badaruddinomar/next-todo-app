@@ -15,7 +15,6 @@ const Todos = () => {
   const [editedTitle, setEditedTitle] = useState("");
   const { todos } = useSelector((state) => state.todoReducer);
   const [isLoading, setIsLoading] = useState(false);
-  console.log(todos);
 
   // get todos--
   useEffect(() => {
@@ -191,14 +190,14 @@ const Todos = () => {
                         )
                       }
                     >
-                      <div className="flex relative items-center justify-center bg-white h-[200px] w-full sm:w-[400px] rounded-lg shadow-sm">
+                      <div className="flex relative items-center justify-center bg-white h-[200px] w-full sm:w-[400px] rounded-lg shadow-sm px-3">
                         <input
                           type="text"
                           placeholder="Edit your task..."
                           autoFocus="false"
                           value={editedTitle}
                           onChange={(e) => setEditedTitle(e.target.value)}
-                          className="px-3 h-[50px] outline-none  rounded-l-md bg-[aliceblue]"
+                          className="px-3 h-[50px] outline-none w-full flex-1  rounded-l-md bg-[aliceblue]"
                         />
                         <button className=" bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 cursor-pointer  text-[white] px-5 h-[50px] bg-[purple] rounded-r-md hover:opacity-50 transition-all duration-300">
                           Edit
