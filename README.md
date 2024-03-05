@@ -11,3 +11,5 @@ Features Implemented:
 ## Tools used:
 
 Next js for UI | Redux toolkit for state management | and tailwind css for styling purpose | JSON Placeholder used for getting fake data
+
+site live link: https://teal-profiterole-18f0ec.netlify.app
